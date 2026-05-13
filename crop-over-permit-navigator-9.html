@@ -1,0 +1,834 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Crop Over · Event and venue permits — Government of Barbados</title>
+  <link rel="stylesheet" href="https://unpkg.com/@govtech-bb/styles@1.0.0-alpha.16/dist/styles.css">
+  <style>
+    /* ── Navigator column ──────────────────────────────────────────── */
+    .pn-wrap {
+      max-width: 680px;
+      margin-inline: auto;
+      padding-block: var(--spacing-m);
+    }
+
+    /* ── Service breadcrumb ────────────────────────────────────────── */
+    .service-caption {
+      border-left: 4px solid var(--color-blue-40);
+      color: var(--color-mid-grey-00);
+      padding: var(--spacing-xs) var(--spacing-s);
+      font-size: var(--font-size-caption);
+      margin-block: var(--spacing-s) 0;
+    }
+
+    /* ── Headings ──────────────────────────────────────────────────── */
+    .pn-wrap h1 {
+      font-size: var(--font-size-h1);
+      font-weight: 700;
+      line-height: var(--line-height-h1);
+      color: var(--color-black-00);
+      margin-block: var(--spacing-s) var(--spacing-xs);
+    }
+    .pn-wrap h2 {
+      font-size: var(--font-size-h2);
+      font-weight: 700;
+      line-height: var(--line-height-h2);
+      color: var(--color-black-00);
+      margin-block: var(--spacing-xm) var(--spacing-xs);
+    }
+    .pn-wrap p { margin-block-end: var(--spacing-s); }
+
+    /* ── Freshness strip ───────────────────────────────────────────── */
+    .govbb-freshness {
+      padding-bottom: var(--spacing-s);
+      border-bottom: 4px solid var(--color-blue-10);
+      color: var(--color-mid-grey-00);
+      margin-block-end: var(--spacing-xm);
+    }
+    .govbb-freshness__meta { margin: 0; font-size: var(--font-size-caption); }
+
+    /* ── Lead text ─────────────────────────────────────────────────── */
+    .lead { color: var(--color-mid-grey-00); margin-block-end: var(--spacing-xm); }
+
+    /* ── Need list ─────────────────────────────────────────────────── */
+    .need-list { padding-left: 1.4rem; list-style: disc; margin-block-end: var(--spacing-xm); }
+    .need-list li { margin-block-end: var(--spacing-xs); font-size: 20px; }
+
+    /* ── Inset callout ─────────────────────────────────────────────── */
+    .inset {
+      border-left: 4px solid var(--color-blue-100);
+      background: var(--color-blue-10);
+      padding: var(--spacing-s);
+      font-size: var(--font-size-caption);
+      margin-block: var(--spacing-s);
+      border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+    }
+    .inset strong { font-weight: 700; }
+
+    /* ── Feedback box (not in base stylesheet) ─────────────────────── */
+    .govbb-feedback-box {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      gap: var(--spacing-xs);
+      background: var(--color-yellow-40);
+      border: 2px solid var(--color-yellow-100);
+      padding: var(--spacing-xm);
+      margin-block: var(--spacing-m);
+      border-radius: var(--radius-sm);
+    }
+    .govbb-feedback-box__title {
+      font-size: var(--font-size-caption);
+      font-weight: 700;
+      color: var(--color-black-00);
+      margin: 0;
+    }
+    .govbb-feedback-box__description {
+      font-size: var(--font-size-caption);
+      color: var(--color-black-00);
+      margin: 0;
+    }
+
+    /* ── Button row ────────────────────────────────────────────────── */
+    .btn-row { display: flex; gap: var(--spacing-xs); flex-wrap: wrap; align-items: center; margin-block: var(--spacing-xm); }
+    @media (max-width: 480px) {
+      .btn-row { flex-direction: column; }
+      .btn-row .govbb-btn, .btn-row .govbb-btn--secondary { width: 100%; }
+    }
+
+    /* ── Option cards (radio) ──────────────────────────────────────── */
+    .options-list { display: flex; flex-direction: column; gap: var(--spacing-xs); margin-block-end: var(--spacing-xm); }
+    .option-card {
+      display: flex; align-items: flex-start; gap: var(--spacing-s);
+      border: var(--border-width-form) solid var(--color-grey-00);
+      padding: var(--spacing-s);
+      cursor: pointer;
+      border-radius: var(--radius-sm);
+      transition: border-color 0.1s, background 0.1s;
+      min-height: 56px;
+    }
+    .option-card:hover { border-color: var(--color-teal-00); background: var(--color-teal-10); }
+    .option-card input[type="radio"] {
+      margin-top: 3px; flex-shrink: 0;
+      width: 22px; height: 22px; accent-color: var(--color-teal-00); cursor: pointer;
+    }
+    .option-card.selected { border-color: var(--color-teal-00); background: var(--color-teal-10); }
+    .option-title { font-weight: 700; display: block; font-size: var(--font-size-body); }
+    .option-hint  { font-size: 16px; color: var(--color-mid-grey-00); display: block; margin-top: 3px; }
+
+    /* ── Checkbox list ─────────────────────────────────────────────── */
+    .checkbox-group {
+      margin-block-end: var(--spacing-xm);
+    }
+    .checkbox-item {
+      display: flex; align-items: center; gap: var(--spacing-s);
+      padding: var(--spacing-s);
+      cursor: pointer;
+      border-bottom: 1px solid var(--color-grey-00);
+      min-height: 52px;
+    }
+    .checkbox-item:first-child { border-top: 1px solid var(--color-grey-00); }
+    .checkbox-item:last-child { border-bottom: 1px solid var(--color-grey-00); }
+    .checkbox-item:hover { background: var(--color-teal-10); }
+    .checkbox-item input[type="checkbox"] {
+      width: 22px; height: 22px; accent-color: var(--color-teal-00);
+      flex-shrink: 0; cursor: pointer;
+    }
+    .checkbox-item span { cursor: pointer; font-size: var(--font-size-body); }
+
+    /* ── Permit header card ────────────────────────────────────────── */
+    .permit-header {
+      background: var(--color-blue-100); color: var(--color-white-00);
+      padding: var(--spacing-s) var(--spacing-xm);
+      display: flex; justify-content: space-between;
+      align-items: flex-start; gap: var(--spacing-s);
+      border-radius: var(--radius-sm);
+      margin-block-end: var(--spacing-xm);
+    }
+    .permit-header-title { font-weight: 700; font-size: 20px; }
+    .permit-header-sub   { font-size: 16px; opacity: 0.85; margin-top: 3px; line-height: 1.45; }
+    .permit-count { font-size: 2.25rem; font-weight: 700; color: var(--color-yellow-100); line-height: 1; }
+    .permit-count-label { font-size: 16px; opacity: 0.85; margin-top: 2px; }
+
+    /* ── Apply-in-order box ────────────────────────────────────────── */
+    .permit-order {
+      background: var(--color-blue-10);
+      border-left: 4px solid var(--color-blue-100);
+      padding: var(--spacing-s) var(--spacing-xm);
+      margin-block-end: var(--spacing-xm);
+    }
+    .permit-order p { font-size: 16px; margin: 0; line-height: 1.6; }
+    .permit-order ol { padding-left: 1.4rem; }
+    .permit-order li { margin-block-end: var(--spacing-xs); font-size: 16px; line-height: 1.6; }
+
+    /* ── Urgent callout ────────────────────────────────────────────── */
+    .urgent-callout {
+      background: var(--color-yellow-10);
+      border-left: 4px solid var(--color-yellow-00);
+      padding: var(--spacing-s) var(--spacing-xm);
+      font-size: var(--font-size-caption);
+      margin-block-end: var(--spacing-xm);
+      line-height: 1.6;
+    }
+    .urgent-callout p { margin: 0; }
+
+    /* ── Permit rows ───────────────────────────────────────────────── */
+    .permit-list {
+      display: flex;
+      flex-direction: column;
+      gap: var(--spacing-s);
+      margin-block-end: var(--spacing-xm);
+    }
+    .permit-item {
+      border: 1px solid var(--color-grey-00);
+      border-radius: var(--radius-sm);
+      padding: var(--spacing-s);
+    }
+    .permit-item-inner {
+      display: block;
+    }
+    .permit-left { display: flex; flex-direction: column; gap: var(--spacing-xs); min-width: 0; }
+    .permit-title-row { display: flex; align-items: center; gap: var(--spacing-s); }
+    .step-badge {
+      display: inline-flex; align-items: center; justify-content: center;
+      background: var(--color-yellow-100); color: var(--color-black-00);
+      font-size: var(--font-size-caption); font-weight: 700;
+      width: 32px; height: 32px; flex-shrink: 0;
+      border-radius: var(--radius-sm);
+    }
+    .permit-name { font-weight: 700; font-size: 20px; line-height: 1.3; }
+    .permit-name a { color: var(--color-teal-00); }
+    .permit-agency-full { font-size: 16px; color: var(--color-mid-grey-00); line-height: 1.5; }
+    .permit-lead {
+      font-size: 16px; font-weight: 700;
+      padding-top: var(--spacing-xs);
+    }
+    .lead-urgent { color: var(--color-red-00); }
+    .lead-green  { color: var(--color-green-00); }
+    .lead-amber  { color: var(--color-yellow-00); }
+    .lead-sub    { font-size: 16px; font-weight: 400; color: var(--color-mid-grey-00); display: block; }
+
+    /* ── Timeline ──────────────────────────────────────────────────── */
+    .timeline-box {
+      border: 1px solid var(--color-grey-00); padding: var(--spacing-s) var(--spacing-xm);
+      margin-block-end: var(--spacing-xm); background: var(--color-white-00);
+      border-radius: var(--radius-sm);
+    }
+    .timeline-box h2 { font-size: var(--font-size-caption); margin-block-end: var(--spacing-s); }
+    .tl-item { display: flex; gap: var(--spacing-xs); margin-block-end: var(--spacing-s); align-items: flex-start; }
+    .tl-item:last-child { margin-block-end: 0; }
+    .tl-dot { width: 13px; height: 13px; border-radius: 50%; flex-shrink: 0; margin-top: 4px; }
+    .tl-red   { background: var(--color-red-00); }
+    .tl-amber { background: var(--color-yellow-00); }
+    .tl-teal  { background: var(--color-teal-00); }
+    .tl-navy  { background: var(--color-blue-100); }
+    .tl-grey  { background: var(--color-mid-grey-00); }
+    .tl-title  { font-weight: 700; font-size: var(--font-size-caption); display: block; }
+    .tl-detail { font-size: var(--font-size-caption-sm); color: var(--color-mid-grey-00); display: block; margin-top: 2px; line-height: 1.6; }
+
+    /* ── Worth knowing ─────────────────────────────────────────────── */
+    .worth-knowing {
+      font-size: 16px; color: var(--color-mid-grey-00);
+      margin-block-end: var(--spacing-xm);
+      border-left: 4px solid var(--color-grey-00); padding-left: var(--spacing-s);
+    }
+    .worth-knowing strong { display: block; margin-block-end: 4px; font-size: 16px; color: var(--color-black-00); }
+
+    /* ── Info callout ──────────────────────────────────────────────── */
+    .info-callout {
+      background: var(--color-teal-10);
+      border-left: 4px solid var(--color-teal-00);
+      padding: var(--spacing-s);
+      font-size: var(--font-size-caption);
+      margin-block-end: var(--spacing-s);
+      border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+      line-height: 1.6;
+    }
+    .info-callout strong { font-weight: 700; display: block; margin-block-end: 4px; }
+
+    /* ── Permit chevron toggle ──────────────────────────────────────── */
+    .permit-toggle {
+      display: flex;
+      align-items: center;
+      gap: var(--spacing-xs);
+      background: none;
+      border: none;
+      border-top: 1px solid var(--color-grey-00);
+      padding: var(--spacing-xs) var(--spacing-s);
+      font-size: 16px;
+      font-family: var(--font-family-base);
+      font-weight: 700;
+      color: var(--color-teal-00);
+      cursor: pointer;
+      width: 100%;
+      text-align: left;
+      transition: background 0.15s;
+    }
+    .permit-toggle:hover { background: var(--color-teal-10); }
+    .permit-chevron {
+      display: inline-block;
+      font-style: normal;
+      transition: transform 0.2s;
+      flex-shrink: 0;
+    }
+    .permit-toggle[aria-expanded="true"] .permit-chevron { transform: rotate(90deg); }
+
+    /* ── Permit docs (expandable) ───────────────────────────────────── */
+    .permit-docs {
+      display: none;
+      padding: var(--spacing-s);
+      border-top: 1px solid var(--color-grey-00);
+      background: var(--color-blue-10);
+    }
+    .permit-docs.open { display: block; }
+    .permit-docs ul { list-style: none; padding: 0; margin: 0; }
+    .permit-docs li {
+      font-size: 16px;
+      color: var(--color-black-00);
+      padding: 5px 0 5px var(--spacing-s);
+      position: relative;
+      border-bottom: 1px solid var(--color-grey-00);
+      line-height: 1.5;
+    }
+    .permit-docs li:last-child { border-bottom: none; }
+    .permit-docs li::before { content: "•"; position: absolute; left: 0; color: var(--color-mid-grey-00); }
+    .permit-docs__apply {
+      margin-top: var(--spacing-s);
+      padding-top: var(--spacing-s);
+      border-top: 1px solid var(--color-blue-40);
+      font-size: 16px;
+    }
+    .permit-docs__apply strong { display: block; font-size: 16px; text-transform: uppercase; letter-spacing: .06em; color: var(--color-mid-grey-00); margin-block-end: var(--spacing-xs); }
+    .permit-docs__apply a.apply-link { margin-block-end: var(--spacing-xs); }
+    .permit-docs__apply .apply-inperson {
+      font-size: 16px; color: var(--color-black-00); line-height: 1.6;
+    }
+    .permit-docs__apply .apply-inperson strong { display: inline; text-transform: none; letter-spacing: 0; color: var(--color-black-00); font-size: inherit; }
+
+    /* ── Screens ───────────────────────────────────────────────────── */
+    .screen { display: none; }
+    .screen.active { display: block; }
+
+    main { padding-block-end: var(--spacing-l); }
+  </style>
+</head>
+<body class="govbb-page">
+  <a href="#main" class="govbb-visually-hidden-focusable">Skip to main content</a>
+
+  <!-- ── Official banner ── -->
+  <div class="govbb-official-banner">
+    <div class="govbb-container govbb-official-banner__inner">
+      <div class="govbb-official-banner__crest">
+        <img class="govbb-official-banner__icon"
+             src="https://unpkg.com/@govtech-bb/styles@1.0.0-alpha.16/dist/assets/images/govbb-creast.svg"
+             alt="" />
+      </div>
+      <div class="govbb-official-banner__text">
+        <span>Official government website</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── Header ── -->
+  <header class="govbb-header">
+    <div class="govbb-container govbb-header__inner">
+      <a href="https://alpha.gov.bb" aria-label="Go to the alpha.gov.bb homepage">
+        <img class="govbb-header__logo"
+             src="https://unpkg.com/@govtech-bb/styles@1.0.0-alpha.16/dist/assets/images/govbb-logo.svg"
+             alt="Government of Barbados" />
+      </a>
+    </div>
+  </header>
+
+  <!-- ── Main ── -->
+  <main id="main">
+
+    <!-- Alpha status banner -->
+    <div class="govbb-status-banner govbb-status-banner--alpha"
+         role="status" aria-label="Alpha status banner" aria-live="polite">
+      <div class="govbb-container">
+        <p>This page is in
+          <a class="govbb-link govbb-link--secondary" href="https://alpha.gov.bb/what-we-mean-by-alpha">Alpha</a>.
+          Your feedback will help us improve it.
+        </p>
+      </div>
+    </div>
+
+    <div class="govbb-container">
+      <div class="pn-wrap">
+
+        <!-- ══════════════════════ START ══════════════════════════════ -->
+        <div id="screen-start" class="screen active">
+          <a href="https://alpha.gov.bb" class="govbb-link">← Back</a>
+          <p class="service-caption">Crop Over · Event and venue permits</p>
+
+          <h1>Make Crop Over happen</h1>
+          <div class="govbb-freshness">
+            <p class="govbb-freshness__meta">Last updated: 13 May 2026</p>
+          </div>
+          <p class="lead">Find out which permits you need, which agencies to contact, and in what order.</p>
+
+          <h2>How long does it take?</h2>
+          <p style="font-size: 20px">About 5 minutes. Your checklist is based on the type of event you are organising.</p>
+
+          <h2>What you will need</h2>
+          <ul class="need-list">
+            <li>The type of event you are putting on.</li>
+            <li>Your venue — private, beach, public road, or on the water.</li>
+            <li>How many people you expect.</li>
+            <li>Whether you plan to serve alcohol, play music, use a stage, or bring overseas performers.</li>
+          </ul>
+
+          <div class="inset">
+            <strong>Indicative guidance only.</strong> Always confirm requirements directly with each agency before applying.
+          </div>
+
+          <button class="govbb-btn" onclick="goTo('screen-step1')" style="margin-block-start:var(--spacing-s)">Start now</button>
+
+          <div class="govbb-feedback-box">
+            <p class="govbb-feedback-box__title">Was this helpful?</p>
+            <p class="govbb-feedback-box__description">Give us your feedback about this page.</p>
+            <a href="mailto:feedback@govtech.gov.bb" class="govbb-link">Help us improve alpha.gov.bb</a>
+          </div>
+        </div>
+
+        <!-- ══════════════════════ STEP 1 ═════════════════════════════ -->
+        <div id="screen-step1" class="screen">
+          <a href="#" class="govbb-link" onclick="goTo('screen-start');return false">← Back</a>
+          <p class="service-caption">Crop Over · Event and venue permits</p>
+          <h1>What are you putting on?</h1>
+          <div class="options-list">
+            <label class="option-card"><input type="radio" name="event-type" value="fete"><span><span class="option-title">A fete or party</span><span class="option-hint">All-inclusive, cooler fete, breakfast party, beach party</span></span></label>
+            <label class="option-card"><input type="radio" name="event-type" value="concert"><span><span class="option-title">A concert or show</span><span class="option-hint">Live music, soca show, calypso competition, stage performance</span></span></label>
+            <label class="option-card"><input type="radio" name="event-type" value="vending"><span><span class="option-title">Food or craft vending</span><span class="option-hint">Selling food, drinks, or crafts at a Crop Over event</span></span></label>
+            <label class="option-card"><input type="radio" name="event-type" value="mas"><span><span class="option-title">A mas band</span><span class="option-hint">Organising a Kadooment band or costume section</span></span></label>
+            <label class="option-card"><input type="radio" name="event-type" value="cruise"><span><span class="option-title">A boat cruise</span><span class="option-hint">Party cruise, sunset sail, event on water</span></span></label>
+            <label class="option-card"><input type="radio" name="event-type" value="market"><span><span class="option-title">A market or fair</span><span class="option-hint">Multi-vendor market, craft fair, cultural exhibition</span></span></label>
+          </div>
+          <div class="btn-row">
+            <button class="govbb-btn" onclick="step1Next()">Continue</button>
+          </div>
+        </div>
+
+        <!-- ══════════════════════ STEP 2 ═════════════════════════════ -->
+        <div id="screen-step2" class="screen">
+          <a href="#" class="govbb-link" onclick="goTo('screen-step1');return false">← Back</a>
+          <p class="service-caption">Crop Over · Event and venue permits</p>
+          <h1>Where are you holding it?</h1>
+          <div class="options-list">
+            <label class="option-card"><input type="radio" name="venue" value="private"><span><span class="option-title">A private venue</span><span class="option-hint">Restaurant, club, event space, private property</span></span></label>
+            <label class="option-card"><input type="radio" name="venue" value="beach"><span><span class="option-title">A beach or park</span><span class="option-hint">National Conservation Commission (NCC)-managed beach, public park, Spring Garden Highway</span></span></label>
+            <label class="option-card"><input type="radio" name="venue" value="road"><span><span class="option-title">A public road or open area</span><span class="option-hint">Street party, roadside, car park, open public space</span></span></label>
+            <label class="option-card"><input type="radio" name="venue" value="water"><span><span class="option-title">On the water</span><span class="option-hint">Harbour, Careenage, open sea</span></span></label>
+          </div>
+          <div class="btn-row">
+            <button class="govbb-btn" onclick="step2Next()">Continue</button>
+          </div>
+        </div>
+
+        <!-- ══════════════════════ STEP 3 ═════════════════════════════ -->
+        <div id="screen-step3" class="screen">
+          <a href="#" class="govbb-link" onclick="goTo('screen-step2');return false">← Back</a>
+          <p class="service-caption">Crop Over · Event and venue permits</p>
+          <h1>How many people are you expecting?</h1>
+          <div class="options-list">
+            <label class="option-card"><input type="radio" name="size" value="small"><span><span class="option-title">Under 200</span><span class="option-hint">Small, intimate event</span></span></label>
+            <label class="option-card"><input type="radio" name="size" value="medium"><span><span class="option-title">200 to 1,000</span><span class="option-hint">Mid-size fete or show</span></span></label>
+            <label class="option-card"><input type="radio" name="size" value="large"><span><span class="option-title">Over 1,000</span><span class="option-hint">Large event or major fete</span></span></label>
+          </div>
+          <div class="btn-row">
+            <button class="govbb-btn" onclick="step3Next()">Continue</button>
+          </div>
+        </div>
+
+        <!-- ══════════════════════ STEP 4 ═════════════════════════════ -->
+        <div id="screen-step4" class="screen">
+          <a href="#" class="govbb-link" onclick="goTo('screen-step3');return false">← Back</a>
+          <p class="service-caption">Crop Over · Event and venue permits</p>
+          <h1>Tell us what's happening at your event</h1>
+          <div class="checkbox-group">
+            <label class="checkbox-item"><input type="checkbox" id="feat-music"><span>I am playing music — live or through a DJ</span></label>
+            <label class="checkbox-item"><input type="checkbox" id="feat-alcohol"><span>I will be selling or serving alcohol</span></label>
+            <label class="checkbox-item"><input type="checkbox" id="feat-food"><span>I am preparing or selling food</span></label>
+            <label class="checkbox-item"><input type="checkbox" id="feat-stage"><span>I am putting up a stage, tent, or temporary structure</span></label>
+            <label class="checkbox-item"><input type="checkbox" id="feat-tickets"><span>I am selling tickets or charging entry</span></label>
+            <label class="checkbox-item"><input type="checkbox" id="feat-pyro"><span>I am using pyrotechnics or fireworks</span></label>
+            <label class="checkbox-item"><input type="checkbox" id="feat-copyright"><span>I am playing recorded or copyrighted music</span></label>
+          </div>
+          <button class="govbb-btn" onclick="showResults()">Show my permits</button>
+        </div>
+
+        <!-- ══════════════════════ RESULTS ════════════════════════════ -->
+        <div id="screen-results" class="screen">
+          <a href="#" class="govbb-link" onclick="goTo('screen-step4');return false">← Back</a>
+          <p class="service-caption">Crop Over · Event and venue permits</p>
+
+          <!-- Checklist header -->
+          <div class="permit-header">
+            <div>
+              <div class="permit-header-title">Your permit checklist</div>
+              <div class="permit-header-sub" id="results-sub">—</div>
+            </div>
+            <div style="text-align:center;flex-shrink:0">
+              <div class="permit-count" id="results-count">0</div>
+              <div class="permit-count-label">permits</div>
+            </div>
+          </div>
+
+          <!-- Apply-in-order box -->
+          <div class="permit-order">
+            <p>Apply in the order each permit appears. Start now and complete applications no later than <strong>May or early June</strong>. We've marked the most urgent permits to help you prioritise.</p>
+          </div>
+
+          <!-- Permit rows (generated by JS) -->
+          <div class="permit-list" id="permits-list"></div>
+
+
+          <!-- Worth knowing -->
+          <div class="worth-knowing">
+            <strong>Worth knowing</strong>
+            This guidance is based on publicly available information and is indicative only. Requirements can change — always confirm with each agency before you apply. This is not legal advice.
+          </div>
+
+          <div class="btn-row">
+            <button class="govbb-btn--secondary" onclick="startAgain()">← Start again</button>
+            <a href="https://alpha.gov.bb" class="govbb-btn">Back to alpha.gov.bb</a>
+          </div>
+
+          <div class="govbb-feedback-box">
+            <p class="govbb-feedback-box__title">Was this helpful?</p>
+            <p class="govbb-feedback-box__description">Give us your feedback about this page.</p>
+            <a href="mailto:feedback@govtech.gov.bb" class="govbb-link">Help us improve alpha.gov.bb</a>
+          </div>
+        </div>
+
+      </div><!-- /.pn-wrap -->
+    </div><!-- /.govbb-container -->
+  </main>
+
+  <!-- ── Footer ── -->
+  <footer class="govbb-footer">
+    <div class="govbb-container govbb-footer__inner">
+      <nav class="govbb-footer__nav" aria-label="Footer navigation">
+        <a class="govbb-footer__link" href="https://alpha.gov.bb">Home</a>
+        <a class="govbb-footer__link" href="https://alpha.gov.bb/cookie-policy">Cookie Policy</a>
+        <a class="govbb-footer__link" href="https://alpha.gov.bb/terms-conditions">Terms &amp; Conditions</a>
+        <a class="govbb-footer__link" href="https://alpha.gov.bb/sitemap">Sitemap</a>
+      </nav>
+      <hr class="govbb-footer__divider" aria-hidden="true" />
+      <div class="govbb-footer__end">
+        <img class="govbb-footer__coat"
+             src="https://unpkg.com/@govtech-bb/styles@1.0.0-alpha.16/dist/assets/images/govbb-creast.svg"
+             alt="Government of Barbados Coat of Arms" />
+        <p class="govbb-footer__copy">© 2026 Government of Barbados</p>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+  /* ── State ─────────────────────────────────────────────────── */
+  const state = { eventType: null, venue: null, size: null };
+
+  /* ── Navigation ────────────────────────────────────────────── */
+  function goTo(id) {
+    document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+    document.getElementById(id).classList.add('active');
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+
+  /* ── Step guards ───────────────────────────────────────────── */
+  function step1Next() {
+    const v = document.querySelector('input[name="event-type"]:checked');
+    if (!v) { alert('Select an option to continue.'); return; }
+    state.eventType = v.value;
+    if (v.value === 'cruise') { state.venue = 'water'; goTo('screen-step3'); }
+    else { goTo('screen-step2'); }
+  }
+  function step2Next() {
+    const v = document.querySelector('input[name="venue"]:checked');
+    if (!v) { alert('Select an option to continue.'); return; }
+    state.venue = v.value; goTo('screen-step3');
+  }
+  function step3Next() {
+    const v = document.querySelector('input[name="size"]:checked');
+    if (!v) { alert('Select an option to continue.'); return; }
+    state.size = v.value; goTo('screen-step4');
+  }
+
+  /* ── Option card highlight ─────────────────────────────────── */
+  document.querySelectorAll('.option-card input[type="radio"]').forEach(r => {
+    r.addEventListener('change', () => {
+      r.closest('.options-list').querySelectorAll('.option-card')
+       .forEach(c => c.classList.remove('selected'));
+      r.closest('.option-card').classList.add('selected');
+    });
+  });
+
+  /* ── Permit definitions ────────────────────────────────────── */
+  const PERMITS = [
+    {
+      step: 1,
+      name: 'Venue permit',
+      agencyFull: 'National Conservation Commission (NCC)',
+      link: 'https://ncc.gov.bb',
+      lead: 'Apply first — 3 weeks minimum',
+      cls: 'lead-urgent',
+      cond: ['beach'],
+      hasFees: true,
+      applyOnline: null,
+      applyInPerson: 'NCC, Codrington House, Haggatt Hall, St. Michael<br>Tel: <strong>(246) 536-0617</strong><br>Email: <strong>specialprojectsoffice@ncc.gov.bb</strong>',
+      docs: [
+        'Written request to the NCC General Manager (at least 3 weeks before the event)',
+        'Event details — nature of activity, date, time, expected attendance',
+        'BPS loud music and public gathering permits (if applicable)',
+        'COSCAP copyright licence (if playing recorded music)',
+        'Chemical toilet plan (required if over 200 patrons)',
+        'Public liability insurance certificate ($100,000 minimum for 100–1,000 patrons)',
+        'Fees apply for commercial structures — stages, tents, bars, stalls'
+      ]
+    },
+    {
+      step: 2,
+      name: 'Place of Public Entertainment licence',
+      agencyFull: 'Barbados Revenue Authority (BRA) — for the venue owner',
+      link: 'https://bra.gov.bb',
+      lead: '3 weeks (renewed annually)',
+      cls: 'lead-amber',
+      cond: [],
+      hasFees: true,
+      applyOnline: 'https://publicentertainment.bra.gov.bb/Place',
+      applyInPerson: 'BRA Public Entertainment Unit, Weymouth Corporate Centre, Spring Garden Highway, St. Michael<br>Tel: <strong>(246) 232-2045</strong><br>Email: publicentertainment@bra.gov.bb',
+      docs: [
+        'Certificate from the Chief Town Planner (planning permission)',
+        'Certificate from the Commissioner of Police',
+        'Fire safety certificate from the Chief Fire Officer (BFS)',
+        'Completed BRA Public Entertainment Portal registration',
+        'Licence fee ($200 to $5,000 depending on venue type)'
+      ]
+    },
+    {
+      step: 2,
+      name: "Promoter's Authorisation to Stage Public Entertainment",
+      agencyFull: 'Barbados Revenue Authority (BRA) — for the event promoter',
+      link: 'https://bra.gov.bb',
+      lead: '3 weeks before tickets go on sale',
+      cls: 'lead-amber',
+      cond: ['tickets'],
+      hasFees: false,
+      applyOnline: 'https://publicentertainment.bra.gov.bb/Promotion',
+      applyInPerson: 'BRA Public Entertainment Unit, Weymouth Corporate Centre, Spring Garden Highway, St. Michael<br>Tel: <strong>(246) 232-2045</strong><br>Email: publicentertainment@bra.gov.bb',
+      docs: [
+        'BRA Public Entertainment Portal registration',
+        'All outstanding tax returns filed with BRA',
+        'Outstanding tax debt settled or instalment agreement in place',
+        'TAMIS numbers for DJs, security firms, and concessionaires',
+        'Withholding tax paid in full for any non-resident performers'
+      ]
+    },
+    {
+      step: 3,
+      name: 'Pyrotechnics and fireworks permit',
+      agencyFull: 'Ministry of Defence and Security · Barbados Defence Force (BDF) · Barbados Fire Service (BFS)',
+      link: 'https://defence.gov.bb',
+      lead: 'Start immediately — longest lead time',
+      cls: 'lead-urgent',
+      cond: ['pyro'],
+      hasFees: false,
+      applyOnline: null,
+      applyInPerson: 'Ministry of Defence and Security, St. Ann\'s Fort, The Garrison, St. Michael<br>BFS Chief Fire Officer approval also required separately',
+      docs: [
+        'Application to the Ministry of Defence and Security',
+        'Barbados Defence Force (BDF) approval for explosives and pyrotechnics',
+        'Customs inspection documents for any imported fireworks',
+        'Certified pyrotechnics operator name and credentials',
+        'Site plan with safety exclusion zones clearly marked',
+        'Separate Chief Fire Officer (BFS) approval for the display'
+      ]
+    },
+    {
+      step: 4,
+      name: 'Loud music permit',
+      agencyFull: 'Barbados Police Service (BPS)',
+      link: 'https://police.gov.bb',
+      lead: '6 weeks',
+      cls: 'lead-amber',
+      cond: ['music'],
+      hasFees: false,
+      applyOnline: null,
+      applyInPerson: 'BPS Headquarters, Lower Roebuck Street, Bridgetown<br>Tel: <strong>(246) 430-7100</strong><br>No public online application available',
+      docs: [
+        'Written application to BPS Headquarters',
+        'Event details — date, time, location, expected attendance',
+        'NCC venue approval letter (if event is at a beach or park)'
+      ]
+    },
+    {
+      step: 4,
+      name: 'Public gathering licence',
+      agencyFull: 'Barbados Police Service (BPS)',
+      link: 'https://police.gov.bb',
+      lead: '6 weeks',
+      cls: 'lead-amber',
+      cond: [],
+      hasFees: false,
+      applyOnline: null,
+      applyInPerson: 'BPS Headquarters, Lower Roebuck Street, Bridgetown<br>Tel: <strong>(246) 430-7100</strong><br>No public online application available',
+      docs: [
+        'Written application to BPS Headquarters',
+        'Event details — date, time, location, expected attendance',
+        'Security plan for the event'
+      ]
+    },
+    {
+      step: 5,
+      name: 'Music copyright (public performance) licence',
+      agencyFull: 'Copyright Society of Composers, Authors and Publishers (COSCAP)',
+      link: 'https://coscap.org',
+      lead: '2 to 3 weeks',
+      cls: '',
+      cond: ['copyright'],
+      hasFees: true,
+      applyOnline: 'https://forms.coscap.org/node/11',
+      applyInPerson: 'COSCAP, 11 8th Avenue, Belleville, St. Michael<br>Book an appointment at appointments.coscap.org',
+      docs: [
+        'Event details — date, expected attendance, and duration',
+        'Licence fee payment (based on COSCAP tariff for event size and type)'
+      ]
+    },
+    {
+      step: 6,
+      name: 'Special Occasion Liquor Licence',
+      agencyFull: 'Liquor Licence Authority, Dept. of Commerce and Consumer Affairs (DCCA)',
+      link: 'https://commerce.gov.bb',
+      lead: '4 working days',
+      cls: 'lead-green',
+      cond: ['alcohol'],
+      hasFees: true,
+      applyOnline: 'https://liquorlicence.gov.bb/',
+      applyInPerson: 'Liquor Licence Authority, DCCA, Country Road, St. Michael<br>Tel: <strong>(246) 535-7011</strong>',
+      docs: [
+        'Online registration at liquorlicence.gov.bb',
+        'EZpay+ payment or payment at any post office',
+        'Valid email address — certificate is delivered by email'
+      ]
+    },
+    {
+      step: 7,
+      name: "Food handler's health certificate",
+      agencyFull: "Any registered doctor's office in Barbados",
+      link: null,
+      lead: 'Allow a week or two',
+      cls: 'lead-amber',
+      cond: ['food'],
+      hasFees: true,
+      applyOnline: null,
+      applyInPerson: 'Any registered doctor\'s office in Barbados<br>No central application — each food handler must be seen individually',
+      docs: [
+        'Health certificate required for each person preparing or handling food',
+        'Fees apply at the doctor\'s office — varies by practice',
+        'All certificates must be kept on site during the event'
+      ]
+    },
+    {
+      step: 8,
+      name: 'Fire safety inspection and certificate',
+      agencyFull: 'Barbados Fire Service (BFS)',
+      link: 'https://bfs.gov.bb',
+      lead: '5 weeks',
+      cls: 'lead-amber',
+      cond: ['stage'],
+      hasFees: true,
+      applyOnline: null,
+      applyInPerson: 'BFS Fire Prevention Unit, CMM Emergency Services Complex, Prince Road, St. Michael<br>Tel: <strong>(246) 535-7829</strong><br>Contact to schedule an inspection',
+      docs: [
+        'Site plan showing exits, extinguisher locations, and generator positions',
+        'Details of any stages, tents, or temporary electrical installations',
+        'Emergency evacuation plan',
+        'Inspection fee applies — see BFS fees schedule'
+      ]
+    }
+  ];
+
+  const EV = { fete: 'A fete or party', concert: 'A concert or show', vending: 'Food or craft vending', mas: 'A mas band', cruise: 'A boat cruise', market: 'A market or fair' };
+  const VN = { private: 'Private venue', beach: 'Beach or park', road: 'Public road or open area', water: 'On the water' };
+  const SZ = { small: 'Under 200 people', medium: '200 to 1,000 people', large: 'Over 1,000 people' };
+
+  /* ── Build and display results ─────────────────────────────── */
+  function showResults() {
+    const f = {
+      beach:     state.venue === 'beach',
+      pyro:      document.getElementById('feat-pyro').checked,
+      music:     document.getElementById('feat-music').checked,
+      alcohol:   document.getElementById('feat-alcohol').checked,
+      food:      document.getElementById('feat-food').checked,
+      stage:     document.getElementById('feat-stage').checked,
+      tickets:   document.getElementById('feat-tickets').checked,
+      copyright: document.getElementById('feat-copyright').checked
+    };
+
+    const active = PERMITS.filter(p => p.cond.length === 0 || p.cond.every(c => f[c]));
+
+    // Renumber steps sequentially starting at 1
+    let n = 0, prev = null;
+    active.forEach(p => { if (p.step !== prev) { n++; prev = p.step; } p._n = n; });
+
+    // Update header
+    document.getElementById('results-sub').textContent =
+      [EV[state.eventType], VN[state.venue], SZ[state.size]].filter(Boolean).join(' · ');
+    document.getElementById('results-count').textContent = active.length;
+
+
+    // Render permit rows with chevron document + fees expander
+    document.getElementById('permits-list').innerHTML = active.map(p => {
+      const toggleLabel = p.hasFees ? 'Documents and fees required' : 'Documents required';
+      const applyHTML = (p.applyOnline || p.applyInPerson) ? `
+        <div class="permit-docs__apply">
+          <strong>How to apply</strong>
+          ${p.applyOnline ? `<div><a href="${p.applyOnline}" class="govbb-btn apply-link" target="_blank" rel="noopener">Apply online</a></div>` : ''}
+          ${p.applyInPerson ? `<p class="apply-inperson">${p.applyInPerson}</p>` : ''}
+        </div>` : '';
+      return `
+      <div class="permit-item">
+        <div class="permit-item-inner">
+          <div class="permit-left">
+            <div class="permit-name">${p.link ? `<a href="${p.link}">${p.name}</a>` : p.name}</div>
+            <div class="permit-agency-full">${p.agencyFull}</div>
+            <div class="permit-lead ${p.cls}">
+              ${p.lead}
+            </div>
+          </div>
+        </div>
+        <button class="permit-toggle" onclick="toggleDocs(this)" aria-expanded="false">
+          <span class="permit-chevron">›</span> ${toggleLabel}
+        </button>
+        <div class="permit-docs">
+          <ul>${p.docs.map(d => `<li>${d}</li>`).join('')}</ul>
+          ${applyHTML}
+        </div>
+      </div>`;
+    }).join('');
+
+    goTo('screen-results');
+  }
+
+  /* ── Toggle document checklist ────────────────────────────── */
+  function toggleDocs(btn) {
+    const docs = btn.nextElementSibling;
+    const isOpen = docs.classList.toggle('open');
+    btn.setAttribute('aria-expanded', String(isOpen));
+  }
+
+  /* ── Start again ───────────────────────────────────────────── */
+  function startAgain() {
+    state.eventType = null; state.venue = null; state.size = null;
+    document.querySelectorAll('input[type="radio"]').forEach(r => {
+      r.checked = false;
+      r.closest('.option-card').classList.remove('selected');
+    });
+    document.querySelectorAll('input[type="checkbox"]').forEach(c => c.checked = false);
+    goTo('screen-start');
+  }
+  </script>
+</body>
+</html>
