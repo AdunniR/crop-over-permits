@@ -306,6 +306,33 @@
     }
     .permit-docs__apply .apply-inperson strong { display: inline; text-transform: none; letter-spacing: 0; color: var(--color-black-00); font-size: inherit; }
 
+    /* ── Email send section ────────────────────────────────────────── */
+    .email-send-section { margin-block: var(--spacing-xm); }
+    .email-send-section .govbb-label { font-size: 16px; display: block; margin-block-end: var(--spacing-xs); font-weight: 700; }
+    .email-send-section .govbb-input-wrapper { margin-block-end: var(--spacing-s); max-width: 400px; }
+    .email-send-section .govbb-btn { display: inline-block; }
+    .email-send-section .action-row { display: flex; gap: var(--spacing-s); flex-wrap: wrap; align-items: center; margin-block-start: var(--spacing-s); }
+
+    @media print {
+      .govbb-official-banner, .govbb-header, .govbb-status-banner,
+      .govbb-footer, .service-caption, .govbb-link,
+      .permit-toggle, .email-send-section, .govbb-feedback-box,
+      .worth-knowing, #screen-start, #screen-step1, #screen-step2,
+      #screen-step3, #screen-step4 { display: none !important; }
+      .permit-header { border-radius: 0; print-color-adjust: exact; -webkit-print-color-adjust: exact; }
+      .permit-item { break-inside: avoid; border: 1px solid #ccc; margin-block-end: 12px; }
+      .permit-docs { display: block !important; background: #f5f7fa !important; print-color-adjust: exact; -webkit-print-color-adjust: exact; }
+      .permit-docs ul { list-style: none; padding: 0; margin: 0; }
+      .permit-docs li { padding: 4px 0 4px 1rem; border-bottom: 1px solid #ddd; font-size: 12px; }
+      .permit-docs li::before { content: "•"; position: absolute; left: 0; }
+      .permit-docs__apply { margin-top: 8px; padding-top: 8px; border-top: 1px solid #aac; font-size: 12px; }
+      .permit-docs__apply strong { display: block; font-size: 11px; text-transform: uppercase; letter-spacing: .06em; margin-block-end: 4px; }
+      .permit-docs__apply .govbb-btn { display: none !important; }
+      .permit-docs__apply .apply-inperson { font-size: 12px; line-height: 1.6; }
+      .permit-order, .permit-header { print-color-adjust: exact; -webkit-print-color-adjust: exact; }
+      body { font-size: 12px; }
+    }
+
     /* ── Screens ───────────────────────────────────────────────────── */
     .screen { display: none; }
     .screen.active { display: block; }
@@ -314,8 +341,6 @@
   </style>
 </head>
 <body class="govbb-page">
-  <a href="#main" class="govbb-visually-hidden-focusable">Skip to main content</a>
-
   <!-- ── Official banner ── -->
   <div class="govbb-official-banner">
     <div class="govbb-container govbb-official-banner__inner">
@@ -389,7 +414,7 @@
           <div class="govbb-feedback-box">
             <p class="govbb-feedback-box__title">Was this helpful?</p>
             <p class="govbb-feedback-box__description">Give us your feedback about this page.</p>
-            <a href="mailto:feedback@govtech.gov.bb" class="govbb-link">Help us improve alpha.gov.bb</a>
+            <a href="https://alpha.gov.bb/feedback" class="govbb-link">Help us improve alpha.gov.bb</a>
           </div>
         </div>
 
@@ -491,15 +516,14 @@
             This guidance is based on publicly available information and is indicative only. Requirements can change — always confirm with each agency before you apply. This is not legal advice.
           </div>
 
-          <div class="btn-row">
-            <button class="govbb-btn--secondary" onclick="startAgain()">← Start again</button>
-            <a href="https://alpha.gov.bb" class="govbb-btn">Back to alpha.gov.bb</a>
+          <div class="email-send-section">
+            <button class="govbb-btn--secondary" onclick="window.print()">Save checklist as PDF</button>
           </div>
 
           <div class="govbb-feedback-box">
             <p class="govbb-feedback-box__title">Was this helpful?</p>
             <p class="govbb-feedback-box__description">Give us your feedback about this page.</p>
-            <a href="mailto:feedback@govtech.gov.bb" class="govbb-link">Help us improve alpha.gov.bb</a>
+            <a href="https://alpha.gov.bb/feedback" class="govbb-link">Help us improve alpha.gov.bb</a>
           </div>
         </div>
 
